@@ -1,0 +1,39 @@
+<form id="edit-form" class="form-horizontal tf-template-form" role="form" data-toggle="validator" method="POST" action="">
+    <input type="hidden" name="fields_data" id="fields-data" value="{$row.fields_data|htmlentities}">
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">模板名称:</label>
+        <div class="col-xs-12 col-sm-4"><input name="row[name]" class="form-control" data-rule="required" value="{$row.name|htmlentities}" type="text"></div>
+        <label class="control-label col-xs-12 col-sm-1">状态:</label>
+        <div class="col-xs-12 col-sm-3">{:build_radios('row[status]', ['0'=>'禁用','1'=>'启用'], $row.status)}</div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">模板说明:</label>
+        <div class="col-xs-12 col-sm-8"><textarea name="row[description]" class="form-control" rows="3">{$row.description|htmlentities}</textarea></div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">表单字段:</label>
+        <div class="col-xs-12 col-sm-10">
+            <div id="tf-form-designer" class="tf-form-designer">
+                <div class="tf-form-palette">
+                    <div class="tf-panel-title">字段组件</div>
+                    <div id="tf-field-palette"></div>
+                </div>
+                <div class="tf-form-canvas-wrap">
+                    <div class="tf-panel-title">表单画布</div>
+                    <div id="tf-template-fields" class="tf-form-canvas"></div>
+                </div>
+                <div class="tf-form-inspector">
+                    <div class="tf-panel-title">字段设置</div>
+                    <div id="tf-field-inspector"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

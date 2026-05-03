@@ -1,0 +1,21 @@
+<div class="panel panel-default panel-intro">
+    <div class="panel-heading">
+        {:build_heading(null,FALSE)}
+        <ul class="nav nav-tabs" data-field="scope">
+            <li class="{:$Think.get.scope === null || $Think.get.scope === 'all' ? 'active' : ''}"><a href="#t-all" data-value="all" data-toggle="tab">全部</a></li>
+            <li class="{:$Think.get.scope === 'todo' ? 'active' : ''}"><a href="#t-todo" data-value="todo" data-toggle="tab">待我办理</a></li>
+            <li class="{:$Think.get.scope === 'mine' ? 'active' : ''}"><a href="#t-mine" data-value="mine" data-toggle="tab">我发起的</a></li>
+            <li class="{:$Think.get.scope === 'copy' ? 'active' : ''}"><a href="#t-copy" data-value="copy" data-toggle="tab">抄送我的</a></li>
+        </ul>
+    </div>
+    <div class="panel-body">
+        <div class="widget-body no-padding">
+            <div id="toolbar" class="toolbar">
+                <a href="javascript:;" class="btn btn-primary btn-refresh"><i class="fa fa-refresh"></i></a>
+            </div>
+            <table id="table" class="table table-striped table-bordered table-hover table-nowrap"
+                   data-operate-del="{:$auth->check('tradeflow/instance/del')}"
+                   width="100%"></table>
+        </div>
+    </div>
+</div>

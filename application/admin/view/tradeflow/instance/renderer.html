@@ -1,0 +1,91 @@
+{foreach name="fields" item="field"}
+<div class="form-group">
+    <label class="control-label col-xs-12 col-sm-2">{$field.label|htmlentities}:</label>
+    <div class="col-xs-12 col-sm-8">
+        {if condition="$field.type eq 'textarea'"}
+        <textarea name="{$prefix}[{$field.name|htmlentities}]" class="form-control" rows="3" {if condition="!empty($field.required)"}data-rule="required"{/if}>{$field.value|default=''|htmlentities}</textarea>
+        {elseif condition="$field.type eq 'select'"}
+        <select name="{$prefix}[{$field.name|htmlentities}]" class="form-control" {if condition="!empty($field.required)"}data-rule="required"{/if}>
+            {foreach name="field.options" item="option"}
+            <option value="{$option|htmlentities}" {if condition="isset($field.value) && $field.value eq $option"}selected{/if}>{$option|htmlentities}</option>
+            {/foreach}
+        </select>
+        {elseif condition="$field.type eq 'radio'"}
+            {foreach name="field.options" item="option"}
+            <label class="radio-inline"><input type="radio" name="{$prefix}[{$field.name|htmlentities}]" value="{$option|htmlentities}" {if condition="isset($field.value) && $field.value eq $option"}checked{/if}> {$option|htmlentities}</label>
+            {/foreach}
+        {elseif condition="$field.type eq 'checkbox'"}
+            {foreach name="field.options" item="option"}
+            <label class="checkbox-inline"><input type="checkbox" name="{$prefix}[{$field.name|htmlentities}][]" value="{$option|htmlentities}" {if condition="isset($field.value) && is_array($field.value) && in_array($option, $field.value)"}checked{/if}> {$option|htmlentities}</label>
+            {/foreach}
+        {elseif condition="$field.type eq 'file'"}
+        <div class="input-group">
+            <input id="c-{$field.name|htmlentities}" name="{$prefix}[{$field.name|htmlentities}]" class="form-control" type="text" placeholder="附件地址" value="{$field.value|default=''|htmlentities}">
+            <div class="input-group-btn">
+                <button type="button" id="faupload-{$field.name|htmlentities}" class="btn btn-danger faupload" data-input-id="c-{$field.name|htmlentities}" data-multiple="false"><i class="fa fa-upload"></i> 上传</button>
+                <button type="button" id="fachoose-{$field.name|htmlentities}" class="btn btn-primary fachoose" data-input-id="c-{$field.name|htmlentities}" data-multiple="false"><i class="fa fa-list"></i> 选择</button>
+            </div>
+        </div>
+        <ul class="row list-inline faupload-preview" id="p-{$field.name|htmlentities}"></ul>
+        {elseif condition="$field.type eq 'datetime'"}
+        <input name="{$prefix}[{$field.name|htmlentities}]" class="form-control datetimepicker" type="text" value="{$field.value|default=''|htmlentities}">
+        {elseif condition="$field.type eq 'array'"}
+        <div class="tf-array-field" data-field="{$field.name|htmlentities}">
+            <table class="table table-bordered table-condensed">
+                <thead>
+                <tr>
+                    {foreach name="field.children" item="child"}
+                    <th>{$child.label|htmlentities}</th>
+                    {/foreach}
+                    <th style="width:80px;">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {foreach name="field.rows" item="rowdata" key="rowindex"}
+                <tr>
+                    {foreach name="field.children" item="child"}
+                    <td>
+                        {if condition="$child.type eq 'textarea'"}
+                        <textarea name="{$prefix}[{$field.name|htmlentities}][{$rowindex}][{$child.name|htmlentities}]" class="form-control" rows="2">{$rowdata[$child.name]|default=''|htmlentities}</textarea>
+                        {elseif condition="$child.type eq 'select'"}
+                        <select name="{$prefix}[{$field.name|htmlentities}][{$rowindex}][{$child.name|htmlentities}]" class="form-control">
+                            {foreach name="child.options" item="option"}
+                            <option value="{$option|htmlentities}" {if condition="isset($rowdata[$child.name]) && $rowdata[$child.name] eq $option"}selected{/if}>{$option|htmlentities}</option>
+                            {/foreach}
+                        </select>
+                        {elseif condition="$child.type eq 'radio'"}
+                            {foreach name="child.options" item="option"}
+                            <label class="radio-inline"><input type="radio" name="{$prefix}[{$field.name|htmlentities}][{$rowindex}][{$child.name|htmlentities}]" value="{$option|htmlentities}" {if condition="isset($rowdata[$child.name]) && $rowdata[$child.name] eq $option"}checked{/if}> {$option|htmlentities}</label>
+                            {/foreach}
+                        {elseif condition="$child.type eq 'checkbox'"}
+                            {foreach name="child.options" item="option"}
+                            <label class="checkbox-inline"><input type="checkbox" name="{$prefix}[{$field.name|htmlentities}][{$rowindex}][{$child.name|htmlentities}][]" value="{$option|htmlentities}" {if condition="isset($rowdata[$child.name]) && is_array($rowdata[$child.name]) && in_array($option, $rowdata[$child.name])"}checked{/if}> {$option|htmlentities}</label>
+                            {/foreach}
+                        {elseif condition="$child.type eq 'file'"}
+                        <div class="input-group">
+                            <input id="c-{$field.name|htmlentities}-{$rowindex}-{$child.name|htmlentities}" name="{$prefix}[{$field.name|htmlentities}][{$rowindex}][{$child.name|htmlentities}]" class="form-control" type="text" placeholder="附件地址" value="{$rowdata[$child.name]|default=''|htmlentities}">
+                            <div class="input-group-btn">
+                                <button type="button" id="faupload-{$field.name|htmlentities}-{$rowindex}-{$child.name|htmlentities}" class="btn btn-danger faupload" data-input-id="c-{$field.name|htmlentities}-{$rowindex}-{$child.name|htmlentities}" data-multiple="false"><i class="fa fa-upload"></i></button>
+                                <button type="button" id="fachoose-{$field.name|htmlentities}-{$rowindex}-{$child.name|htmlentities}" class="btn btn-primary fachoose" data-input-id="c-{$field.name|htmlentities}-{$rowindex}-{$child.name|htmlentities}" data-multiple="false"><i class="fa fa-list"></i></button>
+                            </div>
+                        </div>
+                        {elseif condition="$child.type eq 'datetime'"}
+                        <input name="{$prefix}[{$field.name|htmlentities}][{$rowindex}][{$child.name|htmlentities}]" class="form-control datetimepicker" type="text" value="{$rowdata[$child.name]|default=''|htmlentities}">
+                        {else /}
+                        <input name="{$prefix}[{$field.name|htmlentities}][{$rowindex}][{$child.name|htmlentities}]" class="form-control" type="text" value="{$rowdata[$child.name]|default=''|htmlentities}">
+                        {/if}
+                    </td>
+                    {/foreach}
+                    <td><button type="button" class="btn btn-danger btn-xs tf-array-remove">删除</button></td>
+                </tr>
+                {/foreach}
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-default btn-sm tf-array-add"><i class="fa fa-plus"></i> 添加一行</button>
+        </div>
+        {else /}
+        <input name="{$prefix}[{$field.name|htmlentities}]" class="form-control" type="text" value="{$field.value|default=''|htmlentities}" {if condition="!empty($field.required)"}data-rule="required"{/if}>
+        {/if}
+    </div>
+</div>
+{/foreach}

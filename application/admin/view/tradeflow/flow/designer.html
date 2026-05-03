@@ -1,0 +1,55 @@
+<link rel="stylesheet" href="/assets/addons/tradeflow/css/designer.css">
+<div class="tf-designer" data-flow-id="{$row.id}">
+    <div class="tf-side">
+        <div class="tf-title">交易流程设计</div>
+        <button class="btn btn-success btn-block tf-add-node" data-type="audit"><i class="fa fa-user-check"></i> 审核节点</button>
+        <button class="btn btn-info btn-block tf-add-node" data-type="form"><i class="fa fa-list-alt"></i> 表单节点</button>
+        <button class="btn btn-primary btn-block" id="tf-save"><i class="fa fa-save"></i> 保存并启用</button>
+        <div class="tf-tip">拖动节点调整位置；单击节点配置审核人、表单字段和抄送人。同一横向阶段的多个节点会同步办理，全部完成后进入下一阶段。</div>
+    </div>
+    <div class="tf-canvas-wrap">
+        <svg id="tf-lines"></svg>
+        <div id="tf-canvas"></div>
+    </div>
+    <div class="tf-panel">
+        <form id="tf-node-form">
+            <h4>节点属性</h4>
+            <input type="hidden" id="node-id">
+            <div class="form-group">
+                <label>节点名称</label>
+                <input class="form-control" id="node-label">
+            </div>
+            <div class="form-group tf-audit-only">
+                <label>审核人</label>
+                <select class="form-control" id="node-reviewers" multiple>
+                    {foreach name="admins" item="vo"}
+                    <option value="{$vo.id}">{$vo.name|htmlentities}</option>
+                    {/foreach}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>抄送人</label>
+                <select class="form-control" id="node-copies" multiple>
+                    {foreach name="admins" item="vo"}
+                    <option value="{$vo.id}">{$vo.name|htmlentities}</option>
+                    {/foreach}
+                </select>
+            </div>
+            <div class="form-group tf-form-only">
+                <label>表单模板</label>
+                <select class="form-control" id="node-form-template">
+                    <option value="">不使用模板</option>
+                    {foreach name="formTemplates" item="vo"}
+                    <option value="{$vo.id}">{$vo.name|htmlentities}</option>
+                    {/foreach}
+                </select>
+            </div>
+            <div class="form-group tf-field-config" style="display:none;">
+                <label>表单字段</label>
+                <div id="tf-fields"></div>
+            </div>
+            <button type="button" class="btn btn-success" id="tf-apply-node">应用节点</button>
+            <button type="button" class="btn btn-danger" id="tf-delete-node" style="display:none;">删除节点</button>
+        </form>
+    </div>
+</div>

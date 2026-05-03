@@ -1,0 +1,202 @@
+.tf-designer {
+    display: grid;
+    grid-template-columns: 220px 1fr 320px;
+    height: calc(100vh - 20px);
+    min-height: 640px;
+    background: #f3f6f8;
+    color: #263238;
+}
+.tf-side,
+.tf-panel {
+    padding: 16px;
+    background: #fff;
+    border-right: 1px solid #dfe6eb;
+    overflow: auto;
+}
+.tf-panel {
+    border-right: 0;
+    border-left: 1px solid #dfe6eb;
+}
+.tf-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+.tf-tip {
+    margin-top: 16px;
+    line-height: 1.7;
+    color: #66757f;
+}
+.tf-canvas-wrap {
+    position: relative;
+    overflow: hidden;
+    background-image: linear-gradient(#e2e8ee 1px, transparent 1px), linear-gradient(90deg, #e2e8ee 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+#tf-canvas,
+#tf-lines {
+    position: absolute;
+    inset: 0;
+}
+#tf-lines {
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+.tf-node {
+    position: absolute;
+    width: 136px;
+    min-height: 56px;
+    border: 2px solid #4b8bbe;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 6px 18px rgba(31, 53, 73, .12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: move;
+    user-select: none;
+    padding: 8px;
+}
+.tf-node.active {
+    border-color: #18bc9c;
+    box-shadow: 0 0 0 4px rgba(24, 188, 156, .16);
+}
+.tf-node.start {
+    border-color: #18bc9c;
+}
+.tf-node.end {
+    border-color: #e74c3c;
+}
+.tf-node.audit {
+    border-color: #3c8dbc;
+}
+.tf-node.form {
+    border-color: #f39c12;
+}
+.tf-field-row {
+    border: 1px solid #e4e9ee;
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: #fbfcfd;
+}
+.tf-field-row .form-control {
+    margin-bottom: 6px;
+}
+.tf-array-designer {
+    border: 1px solid #d8e1e8;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 8px 0 10px;
+    background: #f8fafc;
+}
+.tf-array-title {
+    font-weight: 600;
+    line-height: 20px;
+    margin-bottom: 8px;
+    padding-left: 8px;
+    border-left: 3px solid #18bc9c;
+    color: #263238;
+}
+.tf-array-child-table {
+    table-layout: fixed;
+    margin-bottom: 10px !important;
+    background: transparent;
+    border-collapse: separate;
+    border-spacing: 0 6px;
+}
+.tf-array-child-table th {
+    border: 0 !important;
+    color: #53636d;
+    font-size: 12px;
+    font-weight: 600;
+    background: transparent !important;
+    text-align: left;
+    padding: 0 6px 2px !important;
+}
+.tf-array-child-table td,
+.tf-array-child-table th {
+    vertical-align: middle !important;
+}
+.tf-array-child-table td {
+    border: 0 !important;
+    padding: 0 6px !important;
+}
+.tf-array-child-table .form-control {
+    margin-bottom: 0;
+    min-width: 0;
+    height: 32px;
+    border-color: #cfd8e1;
+    box-shadow: none;
+}
+.tf-array-child-table .btn {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    line-height: 30px;
+}
+.tf-array-child-add {
+    background: #fff;
+    border-color: #cfd8e1;
+    color: #334;
+}
+.tf-array-child-add:hover {
+    border-color: #18bc9c;
+    color: #18bc9c;
+}
+.tf-options-designer {
+    border: 1px solid #d8e1e8;
+    border-radius: 4px;
+    padding: 8px;
+    margin: 6px 0 8px;
+    background: #f8fafc;
+}
+.tf-options-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: #53636d;
+    margin-bottom: 6px;
+}
+.tf-option-row {
+    display: flex !important;
+    width: 100%;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+}
+.tf-option-row .form-control {
+    display: block;
+    flex: 1 1 auto;
+    width: auto !important;
+    height: 30px;
+    margin-bottom: 0;
+    min-width: 0;
+}
+.tf-option-row .btn {
+    display: inline-block;
+    flex: 0 0 30px;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    line-height: 30px;
+}
+.tf-options-designer .tf-option-add,
+.tf-options-designer .tf-array-child-option-add {
+    background: #fff;
+    border-color: #cfd8e1;
+    color: #334;
+}
+.tf-options-designer .tf-option-add:hover,
+.tf-options-designer .tf-array-child-option-add:hover {
+    border-color: #18bc9c;
+    color: #18bc9c;
+}
+.tf-array-child-table .tf-options-designer {
+    margin: 0;
+    padding: 6px;
+}
+.tf-array-child-table .tf-options-title {
+    display: none;
+}

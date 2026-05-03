@@ -1,0 +1,52 @@
+<form id="approve-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    <input type="hidden" name="action" id="tf-action" value="approve">
+    {if condition="!empty($activeNodeOptions)"}
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">工作流节点:</label>
+        <div class="col-xs-12 col-sm-8">
+            <div class="btn-group btn-group-sm" style="white-space:normal;">
+                {foreach name="activeNodeOptions" item="vo"}
+                <a href="?ids={$row.id}&node_id={$vo.id}&dialog=1"
+                   class="btn {if condition='$vo.id eq $node.id'}btn-primary{else /}btn-default{/if}">
+                    {$vo.label|htmlentities}
+                    {if condition="isset($vo.edit_status) && $vo.edit_status eq 'completed'"}
+                    <span class="label label-success">已提交</span>
+                    {/if}
+                </a>
+                {/foreach}
+            </div>
+        </div>
+    </div>
+    {/if}
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">当前节点:</label>
+        <div class="col-xs-12 col-sm-8">
+            {if condition="count($activeNodeOptions) gt 1"}
+            <select name="node_id" class="form-control" onchange="location.href='?ids={$row.id}&dialog=1&node_id=' + this.value">
+                {foreach name="activeNodeOptions" item="vo"}
+                <option value="{$vo.id}" {if condition="$vo.id eq $node.id"}selected{/if}>{$vo.label|htmlentities}</option>
+                {/foreach}
+            </select>
+            {else /}
+            <input type="hidden" name="node_id" value="{$node.id|htmlentities}">
+            <p class="form-control-static">{$node.label|htmlentities}</p>
+            {/if}
+        </div>
+    </div>
+    {include file="tradeflow/instance/renderer" /}
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">办理意见:</label>
+        <div class="col-xs-12 col-sm-8"><textarea name="comment" class="form-control" rows="3"></textarea></div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            {if condition="!empty($isActiveNode)"}
+            <button type="submit" class="btn btn-success btn-embossed" onclick="$('#tf-action').val('approve')">通过</button>
+            <button type="submit" class="btn btn-danger btn-embossed" onclick="$('#tf-action').val('reject')">拒绝</button>
+            {else /}
+            <button type="submit" class="btn btn-success btn-embossed" onclick="$('#tf-action').val('approve')">保存修改</button>
+            {/if}
+        </div>
+    </div>
+</form>
